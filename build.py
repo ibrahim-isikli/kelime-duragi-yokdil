@@ -17,7 +17,7 @@ head = '''<!doctype html>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Cep Koçu">
+<meta name="apple-mobile-web-app-title" content="Kelime Durağı">
 <meta name="robots" content="noindex, nofollow">
 '''
 sw_reg = '''<script>
@@ -39,14 +39,14 @@ h = hashlib.sha256()
 for a in assets[1:]:
     h.update((here / a).read_bytes())
 version = h.hexdigest()[:10]
-sw = '''/* YÖKDİL Cep Koçu service worker. CACHE changes whenever any asset changes. */
-const CACHE = 'cep-kocu-%s';
+sw = '''/* Kelime Durağı service worker. CACHE changes whenever any asset changes. */
+const CACHE = 'kelime-duragi-%s';
 const ASSETS = %s;
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS.map(u => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith('cep-kocu-') && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+  e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith('kelime-duragi-') && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
 });
 self.addEventListener('fetch', e => {
   const req = e.request;

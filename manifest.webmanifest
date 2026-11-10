@@ -1,7 +1,7 @@
 {
-  "name": "YÖKDİL Cep Koçu",
-  "short_name": "Cep Koçu",
-  "description": "YÖKDİL kelime kartları, test, gramer ve sözlük. İnternetsiz çalışır.",
+  "name": "Kelime Durağı: YÖKDİL Kelime",
+  "short_name": "Kelime Durağı",
+  "description": "YÖKDİL kelime kartları, test, gramer ve sözlük. İnternetsiz çalışır. ÖSYM ile bağlantısı yoktur.",
   "lang": "tr",
   "start_url": "./",
   "scope": "./",
@@ -10,8 +10,21 @@
   "background_color": "#FAF5FF",
   "theme_color": "#4C1D95",
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }

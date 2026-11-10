@@ -10,9 +10,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Cep Koçu">
+<meta name="apple-mobile-web-app-title" content="Kelime Durağı">
 <meta name="robots" content="noindex, nofollow">
-<title>YÖKDİL Cep Koçu</title>
+<title>Kelime Durağı</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="theme-color" content="#4C1D95">
 <style id="fonts">
@@ -781,7 +781,7 @@ button.streak{min-height:44px}
 <header class="top"><div class="top-in">
   <div class="brand">
     <span class="brand-logo" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><rect x="9" y="5" width="16" height="20" rx="3.5" transform="rotate(12 17 15)" stroke="currentColor" stroke-opacity=".55" stroke-width="2.2"/><rect x="6" y="8" width="16" height="20" rx="3.5" fill="currentColor"/><path d="M10.5 14.5h7M10.5 18.5h4.5" stroke="var(--hero)" stroke-width="2.2" stroke-linecap="round"/></svg></span>
-    <div><b>YÖKDİL Cep Koçu</b><small>Doğru Cevap listeleri</small></div>
+    <div><b>Kelime Durağı</b><small>Doğru Cevap listeleri</small></div>
   </div>
   <button class="streak" id="streak" data-act="streak" aria-haspopup="dialog">0 gün seri</button>
   <button class="gear" data-act="settings" aria-label="Ayarlar" aria-haspopup="dialog"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
@@ -982,7 +982,7 @@ function storeBanner(){const el=document.getElementById('storewarn');if(!el)retu
 function renderInner(){saveQuiz();
   renderTabs();
   const v=$('#view');
-  const h1=`<h1 class="sr">YÖKDİL Cep Koçu: ${route==='gramer'&&GT&&validTopic(GT)?TOPICS.find(x=>x[0]===GT)[1]+' (Gramer)':TABS.find(t=>t[0]===route)[1]}</h1>`;
+  const h1=`<h1 class="sr">Kelime Durağı: ${route==='gramer'&&GT&&validTopic(GT)?TOPICS.find(x=>x[0]===GT)[1]+' (Gramer)':TABS.find(t=>t[0]===route)[1]}</h1>`;
   if(route==='kartlar'){v.innerHTML=h1+viewCards();bindSwipe();bindTabs();fitCardText();if(!obSeen('flip')&&!CS.nudged&&CS.cur&&!reducedMotion()){CS.nudged=true;const w=document.getElementById('cwrap');w&&w.classList.add('nudge')}}
   else if(route==='test'){v.innerHTML=h1+viewQuiz();bindTabs()}
   else if(route==='gramer'){v.innerHTML=h1+viewGrammar();bindPrep()}
@@ -1490,16 +1490,17 @@ function renderSettings(){
 const BK={open:false,text:'',err:'',confirm:false,code:'',parsed:null};
 const resetBK=()=>Object.assign(BK,{open:false,text:'',err:'',confirm:false,code:'',parsed:null});
 function backupText(){flushSave();let quiz=null;try{quiz=JSON.parse(localStorage.getItem(KEY+'-quiz')||'null')}catch(e){}
-  return JSON.stringify({app:'yokdil-cep-kocu',schema:SCHEMA,created:new Date().toISOString(),state:S,quiz})}
+  return JSON.stringify({app:'kelime-duragi',schema:SCHEMA,created:new Date().toISOString(),state:S,quiz})}
 /* in the claude.ai viewer files go through the platform's downloads capability; elsewhere a plain blob link */
-async function downloadBackup(){const name='yokdil-yedek-'+dkey(new Date())+'.json';let dl=null;
+async function downloadBackup(){const name='kelime-duragi-yedek-'+dkey(new Date())+'.json';let dl=null;
   try{if(window.claude&&typeof window.claude.use==='function')dl=await window.claude.use('downloads')}catch(e){dl=null}
   if(dl){try{await dl.save({filename:name,data:backupText()});toastMsg('Yedek dosyası kaydedildi.')}catch(e){if(!e||e.code!=='declined'){BK.code=backupText();renderSettings()}}return}
   downloadBlob()}
-function downloadBlob(){try{const blob=new Blob([backupText()],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='yokdil-yedek-'+dkey(new Date())+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);toastMsg('Yedek dosyası indirildi.')}catch(e){BK.code=backupText();renderSettings()}}
+function downloadBlob(){try{const blob=new Blob([backupText()],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='kelime-duragi-yedek-'+dkey(new Date())+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);toastMsg('Yedek dosyası indirildi.')}catch(e){BK.code=backupText();renderSettings()}}
 async function copyBackup(){const t=backupText();try{await navigator.clipboard.writeText(t);toastMsg('Yedek kodu panoya kopyalandı.')}catch(e){BK.code=t;renderSettings();const ta=document.getElementById('bkcode');if(ta){ta.focus();ta.select()}}}
 function parseBackup(text){let o;try{o=JSON.parse(String(text).trim())}catch(e){return [null,'Bu metin bir yedek kodu değil.']}
-  if(!isObj(o)||o.app!=='yokdil-cep-kocu'||!isObj(o.state))return [null,'Bu yedek bu uygulamaya ait değil.'];return [o,'']}
+  /* 'yokdil-cep-kocu' = backups made before the rename */
+  if(!isObj(o)||!['kelime-duragi','yokdil-cep-kocu'].includes(o.app)||!isObj(o.state))return [null,'Bu yedek bu uygulamaya ait değil.'];return [o,'']}
 function applyBackup(o){try{localStorage.setItem(KEY+'-backup-restore',JSON.stringify(S))}catch(e){}
   S=migrateState(sanitizeState(o.state));save();
   try{if(isObj(o.quiz))localStorage.setItem(KEY+'-quiz',JSON.stringify(o.quiz));else localStorage.removeItem(KEY+'-quiz')}catch(e){}
