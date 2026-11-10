@@ -486,6 +486,10 @@ span.chip{cursor:default;min-height:36px;font-weight:400}
 .swipe-lbl.l{right:16px;background:var(--accent);color:var(--on-accent)}
 .swipe-lbl.r{left:16px;background:var(--accent);color:var(--on-accent)}
 .card-wrap[data-dir="l"] .swipe-lbl.l,.card-wrap[data-dir="r"] .swipe-lbl.r{opacity:1}
+/* swipe labels: small, in the card's bottom corners, only while the gesture is being introduced */
+.swipe-lbl{top:auto;bottom:18px;transform:none;padding:3px 10px;font-size:13px}
+.card-wrap:not(.intro) .swipe-lbl{display:none}
+.fcard{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .deck{gap:14px}
 .dtabs-wrap{position:relative;margin-left:calc(-1 * var(--gut-l));margin-right:calc(-1 * var(--gut-r))}
 .dtabs-wrap::after{content:"";position:absolute;top:0;bottom:8px;right:0;width:32px;background:linear-gradient(to right,transparent,var(--bg));pointer-events:none}
@@ -1077,7 +1081,7 @@ function viewCards(){
         <div class="expane" data-pane="conf" ${tb==='conf'?'':'hidden'}>${conf.length?`<ul class="sb-cmp">${conf.map(z=>`<li><b lang="en">${esc(z[0])}</b><i aria-hidden="true">→</i><span>${esc(z[1])}</span>${z[2]?`<small>${esc(z[2])}</small>`:''}</li>`).join('')}</ul>`:'<p class="sb-empty">Karıştırılan kelime eklenmedi.</p>'}</div>
       </div>
     </div></div></div>`:'';
-    card=`<div class="card-wrap ${ex&&CS.ex?'ex-on':''}" id="cwrap"><span class="swipe-lbl l" aria-hidden="true">Sonraki ›</span><span class="swipe-lbl r" aria-hidden="true">‹ Önceki</span>
+    card=`<div class="card-wrap ${ex&&CS.ex?'ex-on':''} ${obSeen('cards')?'':'intro'}" id="cwrap"><span class="swipe-lbl l" aria-hidden="true">Sonraki ›</span><span class="swipe-lbl r" aria-hidden="true">‹ Önceki</span>
       <button class="sr flipsr" data-act="flip" aria-pressed="${CS.flip}" aria-label="Kartı çevir: ${esc(CS.dir==='en'?c.w:c.m)}"></button>
       <div class="fcard ${CS.flip?'flip':''}" data-act="flip">
       <div class="face front" ${CS.flip?'inert':''}>${starBtn}${helpBtn}<div class="face-top"></div><div class="face-mid">${front}</div><div class="face-bot"><span class="tag">${CATS[c.cat].tag}</span></div></div>
@@ -1596,9 +1600,11 @@ render();
 /* PWA: offline cache; a new version activates on the next launch */
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+  /* only a page that was already controlled is getting an update; the first install must stay silent */
+  const hadController = !!navigator.serviceWorker.controller;
   let reloaded = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (reloaded || !navigator.serviceWorker.controller) return; reloaded = true;
+    if (reloaded || !hadController) return; reloaded = true;
     try { typeof toastMsg === 'function' && toastMsg('Uygulama güncellendi.'); } catch (e) {}
   });
 }

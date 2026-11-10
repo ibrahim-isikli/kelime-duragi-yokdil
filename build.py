@@ -24,9 +24,11 @@ sw_reg = '''<script>
 /* PWA: offline cache; a new version activates on the next launch */
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+  /* only a page that was already controlled is getting an update; the first install must stay silent */
+  const hadController = !!navigator.serviceWorker.controller;
   let reloaded = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (reloaded || !navigator.serviceWorker.controller) return; reloaded = true;
+    if (reloaded || !hadController) return; reloaded = true;
     try { typeof toastMsg === 'function' && toastMsg('Uygulama güncellendi.'); } catch (e) {}
   });
 }
