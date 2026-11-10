@@ -1,5 +1,5 @@
 /* Kelime Durağı service worker. CACHE changes whenever any asset changes. */
-const CACHE = 'kelime-duragi-31b54e1162';
+const CACHE = 'kelime-duragi-8d7b09bc34';
 const ASSETS = ["./", "index.html", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-512.png", "icons/apple-touch-icon.png"];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS.map(u => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
