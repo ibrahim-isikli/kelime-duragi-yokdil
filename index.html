@@ -1483,8 +1483,7 @@ function renderSettings(){
       ${BK.confirm?`<div class="set-confirm" role="alertdialog" aria-label="Geri yükleme onayı"><p>Mevcut ilerlemenin yerine geçsin mi?</p><div><button class="pill" data-act="bkno">Vazgeç</button><button class="pill danger" data-act="bkyes">Geri yükle</button></div></div>`:''}</div>`
       :`<button class="set-row plain" data-act="bkopen"><span><b>Yedekten geri yükle</b><small>Başka bir cihazdan ya da tarayıcıdan aktar</small></span><i aria-hidden="true">›</i></button>`}
   </section>
-  <section class="sb-sec"><h3 class="sb-h">İlerleme</h3>${confirmReset?`<div class="set-confirm" role="alertdialog" aria-label="Sıfırlama onayı"><p>Tüm ilerleme silinsin mi?</p><div><button class="pill" data-act="resetno">Vazgeç</button><button class="pill danger" data-act="resetyes">Sıfırla</button></div></div>`:`<button class="set-row" data-act="reset"><span><b>İlerlemeyi sıfırla</b><small>Öğrenilenler, yanlışlar ve seri silinir</small></span><i aria-hidden="true">›</i></button>`}</section>
-  <section class="sb-sec"><h3 class="sb-h">Hakkında</h3><p class="about">Kelime ve gramer listeleri, “Doğru Cevap” YÖKDİL listelerinden derlenmiştir. Örnek cümleler, çeviriler, eş anlamlılar ve karıştırılan kelimeler yapay zekâ yardımıyla üretildi ve bir uzman tarafından tam olarak incelenmedi; hata görebilirsin.</p></section>`;
+  <section class="sb-sec"><h3 class="sb-h">İlerleme</h3>${confirmReset?`<div class="set-confirm" role="alertdialog" aria-label="Sıfırlama onayı"><p>Tüm ilerleme silinsin mi?</p><div><button class="pill" data-act="resetno">Vazgeç</button><button class="pill danger" data-act="resetyes">Sıfırla</button></div></div>`:`<button class="set-row" data-act="reset"><span><b>İlerlemeyi sıfırla</b><small>Öğrenilenler, yanlışlar ve seri silinir</small></span><i aria-hidden="true">›</i></button>`}</section>`;
 }
 /* backup & restore */
 const BK={open:false,text:'',err:'',confirm:false,code:'',parsed:null};
