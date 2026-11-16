@@ -754,9 +754,11 @@ td code,.f{font-family:var(--f-mono);font-size:13px;color:var(--accent-ink);whit
 .de-h b{overflow-wrap:anywhere;min-width:0}
 .wl div>span{min-width:0;overflow-wrap:anywhere}
 .wl b{flex:none;max-width:50%;overflow-wrap:anywhere}
-.sb-cmp li{grid-template-columns:minmax(0,auto) 18px minmax(0,1fr)}
-.sb-cmp b{min-width:min(96px,28vw);overflow-wrap:anywhere}
-.sb-cmp span,.sb-cmp small{min-width:0;overflow-wrap:anywhere}
+.sb-cmp li{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px}
+.sb-cmp b{flex:0 1 auto;min-width:0;overflow-wrap:anywhere}
+.sb-cmp i{flex:none}
+.sb-cmp span{flex:1 1 4em;overflow-wrap:break-word}
+.sb-cmp small{flex:1 0 100%;min-width:0;overflow-wrap:break-word}
 h3.sb-h{line-height:1.5;text-wrap:wrap}
 /* QA-013: 44px touch targets */
 button.streak{min-height:44px}
