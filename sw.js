@@ -1,11 +1,12 @@
-/* Kelime Durağı service worker. CACHE changes whenever any asset changes. */
-const CACHE = 'kelime-duragi-9b6fbef3da';
+/* Kelime Durağı (YÖKDİL) service worker. CACHE changes whenever any asset changes.
+   Other apps on the same origin (e.g. the YDS edition) keep their own caches: only this app's names are cleaned up. */
+const CACHE = 'kelime-duragi-yokdil-9b6fbef3da';
 const ASSETS = ["./", "index.html", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-512.png", "icons/apple-touch-icon.png"];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS.map(u => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith('kelime-duragi-') && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+  e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE && (k.startsWith('kelime-duragi-yokdil-') || /^kelime-duragi-[0-9a-f]{10}$/.test(k) || k.startsWith('cep-kocu-'))).map(k => caches.delete(k)))).then(() => self.clients.claim()));
 });
 self.addEventListener('fetch', e => {
   const req = e.request;
